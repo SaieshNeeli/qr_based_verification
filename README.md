@@ -48,7 +48,6 @@ Copy code
 ## 🧰 Installation
 
 ### 1. Clone the Repository
-```bash
 git clone https://github.com/<your-username>/live-video-qr-face-verification.git
 cd live-video-qr-face-verification
 2. Create a Virtual Environment (optional but recommended)

@@ -1,87 +1,148 @@
-🎯 Live Video QR + Face Verification System
-🧠 Overview
+# 🎯 Live Video QR + Face Verification System
 
-This project implements a real-time user authentication system using QR code scanning and facial recognition.
-It verifies a person’s identity using a live webcam feed and a MongoDB database.
+## 🧠 Overview
+This project implements a **real-time user authentication system** that combines **QR code scanning** and **facial recognition**.  
+It verifies a person’s identity through a live webcam feed by using **DeepFace embeddings** and a **MongoDB database** for secure access validation.
 
-⚙️ Features
+---
 
-📸 Live face capture and embedding extraction using DeepFace
+## ⚙️ Features
+- 📸 Live face capture and embedding extraction using **DeepFace (Facenet)**
+- 🔒 Unique QR code generation for every registered user
+- 🧩 Real-time face + QR verification with **cosine similarity**
+- 🗃️ MongoDB Atlas integration to store user data and logs
+- 🎥 Real-time video stream verification using **OpenCV**
 
-🔒 QR code generation for unique user identification
+---
 
-🧩 Face verification with cosine similarity
+## 🧩 Tech Stack
 
-🧠 MongoDB database integration for user and log storage
+| Component | Technology Used |
+|------------|-----------------|
+| Face Recognition | DeepFace (Facenet) |
+| QR Code | qrcode (PIL) |
+| Video Stream | OpenCV |
+| Database | MongoDB Atlas |
+| ML Metric | Cosine Similarity |
+| Programming Language | Python |
 
-🎥 Real-time video verification via OpenCV
+---
 
-🧩 Tech Stack
-Component	Technology Used
-Face Recognition	DeepFace (Facenet)
-QR Code	qrcode (PIL)
-Video Stream	OpenCV
-Database	MongoDB Atlas
-Machine Learning Metric	Cosine Similarity
-Language	Python
-🧰 Installation
+## 📂 Folder Structure
+
+live-video-qr-face-verification/
+│
+├── main.py # Main application file
+├── requirements.txt # Dependencies list
+├── README.md # Project documentation
+├── .gitignore # Ignored files/folders
+├── generated_qr/ # Generated QR codes
+├── faces_detected/ # Captured face images
+└── qr_detected/ # For QR snapshots (optional)
+
+yaml
+Copy code
+
+---
+
+## 🧰 Installation
+
+### 1. Clone the Repository
+```bash
 git clone https://github.com/<your-username>/live-video-qr-face-verification.git
 cd live-video-qr-face-verification
+2. Create a Virtual Environment (optional but recommended)
+bash
+Copy code
+python -m venv venv
+source venv/bin/activate   # On Linux/Mac
+venv\Scripts\activate      # On Windows
+3. Install Dependencies
+bash
+Copy code
 pip install -r requirements.txt
+4. Configure MongoDB
+Create a free cluster on MongoDB Atlas
 
+Copy your connection string and replace it in main.py:
+
+python
+Copy code
+MONGO_URI = "your_mongodb_connection_string"
 🚀 Usage
+Run the main program:
 
-Run the system:
-
+bash
+Copy code
 python main.py
-
-
-Main Menu
-
+Menu Options
+pgsql
+Copy code
 1. Register new user (live video)
 2. Verify user (live video)
 3. Exit
+During registration, press C to capture your face.
 
-🗃️ MongoDB Setup
+During verification, hold your QR code in front of the webcam.
 
-Create a cluster on MongoDB Atlas
+Press Q or Esc to exit the video window at any time.
 
-Get your connection string and replace it in:
+🗃️ MongoDB Collections
+Collection	Description
+users	Stores user ID, name, QR data, and facial embedding
+logs	Stores access attempts with timestamp and verification result
 
-MONGO_URI = "your_mongo_connection_string"
+🧩 Working Process
+User Registration
 
+Captures face from webcam
 
-Collections used:
+Generates Facenet embedding
 
-users → stores user info + face embedding + QR data
+Creates a unique QR code containing user_id|name
 
-logs → stores access logs
+Saves user data in MongoDB
 
-📂 Folder Structure
-live-video-qr-face-verification/
-│
-├── main.py
-├── requirements.txt
-├── README.md
-├── generated_qr/          # QR codes saved here
-├── faces_detected/        # Captured faces
-├── qr_detected/           # (optional future use)
-└── .gitignore             # optional
+User Verification
 
-📸 Demo Idea (Optional)
+Reads QR code from live video
 
-You can add a demo GIF or video later showing:
+Extracts live face and generates embedding
 
-User registration
+Compares similarity with stored embedding
 
-QR + Face verification working live
+If similarity > 0.40 → ✅ Access Granted, else ❌ Denied
+
+Stores verification log in MongoDB
+
+🧠 Example Workflow
+Step	Description
+1️⃣	Run program and select Register user
+2️⃣	Capture face and generate QR code
+3️⃣	Hold QR code to camera for verification
+4️⃣	System verifies face + QR and grants access
+5️⃣	MongoDB logs each attempt
 
 ⚡ Future Enhancements
+Admin dashboard for user management and logs
 
-Add admin dashboard for access logs
+Multi-face detection and verification in a single frame
 
-Multi-user face recognition (top match)
+Integration with IoT (door lock, attendance system)
 
-Deploy as a desktop or web app (Flask/Streamlit)
+Web app or Streamlit interface for non-technical users
 
-Integrate with IoT gate lock system
+📸 Demo Idea
+Add a short GIF or video in the repo later showing:
+
+Face registration
+
+QR generation
+
+Live access verification
+
+Example placeholder:
+
+markdown
+Copy code
+![Demo GIF](demo/demo.gif)

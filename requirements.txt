@@ -1,0 +1,6 @@
+deepface
+opencv-python
+numpy
+qrcode[pil]
+pymongo
+scikit-learn
